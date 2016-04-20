@@ -1,8 +1,10 @@
 import React from 'react';
-import marked from 'marked';
+import Remarkable from 'remarkable';
+
+const remarkable = new Remarkable();
 
 function MarkdownRenderer(props) {
-    const html = marked(props.markdown || '', { sanitize: true });
+    const html = remarkable.render(props.markdown);
 
     return (
         <div className={props.className} dangerouslySetInnerHTML={{ __html: html }}></div>
