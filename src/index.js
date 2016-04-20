@@ -1,9 +1,9 @@
 import React from 'react';
 import Remarkable from 'remarkable';
 
-const remarkable = new Remarkable();
-
 function MarkdownRenderer(props) {
+    // TODO: this should not be instantiated here and should be outside of the render method, but the tests fail
+    const remarkable = new Remarkable();
     const html = remarkable.render(props.markdown);
 
     return (

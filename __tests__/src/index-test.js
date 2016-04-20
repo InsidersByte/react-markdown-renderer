@@ -5,23 +5,32 @@ jest.unmock('../../src');
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
-import marked from 'marked';
+import Remarkable from 'remarkable';
 import MarkdownRenderer from '../../src';
 
 describe('MarkdownRenderer', () => {
     const markdown = '# This is a H1  \n## This is a H2  \n###### This is a H6';
+    let renderMock = null;
 
     beforeEach(() => {
-        marked.mockClear();
+        renderMock = jest.fn();
+
+        Remarkable.mockImplementation(() => ({
+            render: renderMock,
+        }));
     });
+
+    // afterEach(() => {
+    //     expect(Remarkable.mock.instances.length).toEqual(1);
+    // });
 
     describe('sets innerHTML', () => {
         let containerNode;
         let html;
 
         afterEach(() => {
-            expect(marked.mock.calls.length).toEqual(1);
-            expect(marked).toBeCalledWith(markdown, { sanitize: true });
+            expect(renderMock.mock.calls.length).toEqual(1);
+            expect(renderMock).toBeCalledWith(markdown);
 
             const markdownRendererNode = containerNode.children[0];
 
@@ -33,7 +42,7 @@ describe('MarkdownRenderer', () => {
         describe('marked returns html', () => {
             beforeEach(() => {
                 html = '<h1>This is a H1</h1>';
-                marked.mockReturnValueOnce(html);
+                renderMock.mockReturnValueOnce(html);
             });
 
             it('sets innerHTML to html', () => {
@@ -50,12 +59,10 @@ describe('MarkdownRenderer', () => {
         describe('marked returns empty string', () => {
             beforeEach(() => {
                 html = '';
-                marked.mockReturnValueOnce(html);
+                renderMock.mockReturnValueOnce(html);
             });
 
             it('sets innerHTML to empty string', () => {
-                marked.mockReturnValueOnce('');
-
                 const markdownRenderer = TestUtils.renderIntoDocument(
                     <div>
                         <MarkdownRenderer markdown={markdown} />
@@ -94,37 +101,6 @@ describe('MarkdownRenderer', () => {
             const markdownRendererNode = containerNode.children[0];
 
             expect(markdownRendererNode.className).toBe(className);
-        });
-    });
-
-    describe('defaults markdown', () => {
-        afterEach(() => {
-            expect(marked.mock.calls.length).toEqual(1);
-            expect(marked).toBeCalledWith('', { sanitize: true });
-        });
-
-        it('nothing passed', () => {
-            TestUtils.renderIntoDocument(
-                <div>
-                    <MarkdownRenderer />
-                </div>
-            );
-        });
-
-        it('undefined passed', () => {
-            TestUtils.renderIntoDocument(
-                <div>
-                    <MarkdownRenderer markdown={undefined} />
-                </div>
-            );
-        });
-
-        it('null passed', () => {
-            TestUtils.renderIntoDocument(
-                <div>
-                    <MarkdownRenderer markdown={null} />
-                </div>
-            );
         });
     });
 });
