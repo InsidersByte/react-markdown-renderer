@@ -46,7 +46,7 @@
     "react": ">=0.14.7"
   },
   "dependencies": {
-    "prop-types": "15.5.9",
+    "prop-types": "^15.5.9",
     "remarkable": "^1.7.1"
   },
   "devDependencies": {
