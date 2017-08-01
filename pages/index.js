@@ -27,7 +27,10 @@ class App extends React.Component {
         <div>
           <h2>React Markdown Renderer</h2>
 
-          <MarkdownRenderer className="markdown-editor__preview" markdown={this.state.markdown} />
+          <MarkdownRenderer
+            className="markdown-editor__preview"
+            markdown={this.state.markdown}
+          />
         </div>
       </div>
     );

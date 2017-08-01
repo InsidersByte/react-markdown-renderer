@@ -36,10 +36,17 @@ ReactDOM.render(
 
 ## Props
 
-* markdown (*string*) - the raw markdown that will be converted to html (**required**)
-* options (*object*) - the options for remarkable (see [here](https://github.com/jonschlinkert/remarkable#options)) (default: {})
+#### `markdown: string`
 
-All other props are transferred via spreading (see [here](https://facebook.github.io/react/docs/transferring-props.html)).
+The raw markdown that will be converted to html.
+
+#### `options: Object` (optional)
+
+Default value: `{ preset: 'default' }`
+
+The [options](https://github.com/jonschlinkert/remarkable#option) and [preset](https://github.com/jonschlinkert/remarkable#presets) for [remarkable](https://github.com/jonschlinkert/remarkable).
+
+> All other props are transferred via spreading (see [here](https://facebook.github.io/react/docs/transferring-props.html)).
 
 ## Contributing
 

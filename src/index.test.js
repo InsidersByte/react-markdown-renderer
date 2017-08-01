@@ -1,72 +1,93 @@
-/* eslint-env jest */
-/* eslint-disable import/first, import/no-extraneous-dependencies */
+// @flow
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import Remarkable from 'remarkable';
+import remarkable from 'remarkable';
 import MarkdownRenderer from './';
 
 jest.mock('remarkable');
 
+const markdown = '# This is a H1';
+const html = '<h1>This is a H1</h1>';
+const renderMock = jest.fn(() => html);
+
 describe('MarkdownRenderer', () => {
-  const markdown = '# This is a H1  \n## This is a H2  \n###### This is a H6';
-  let renderMock = null;
-
   beforeEach(() => {
-    renderMock = jest.fn();
+    remarkable.mockClear();
+    renderMock.mockClear();
 
-    Remarkable.mockImplementation(() => ({
+    remarkable.mockImplementation(() => ({
       render: renderMock,
     }));
   });
 
-  afterEach(() => {
-    expect(renderMock.mock.instances.length).toEqual(1);
+  it('should render correctly', () => {
+    const markdownRenderer = shallow(
+      <MarkdownRenderer markdown="# This is a H1" />,
+    );
+
+    expect(markdownRenderer.html()).toBe('<div><h1>This is a H1</h1></div>');
   });
 
-  describe('sets innerHTML', () => {
-    let markdownRenderer;
-    let html;
+  describe('remarkable', () => {
+    describe('preset', () => {
+      describe('should default preset to default', () => {
+        it('if nothing passed', () => {
+          shallow(
+            <MarkdownRenderer markdown="# This is a H1" />,
+          );
 
-    afterEach(() => {
-      expect(renderMock.mock.calls.length).toEqual(1);
-      expect(renderMock).toBeCalledWith(markdown);
-      expect(markdownRenderer.html()).toBe(`<div>${html}</div>`);
+          expect(remarkable).toHaveBeenCalledTimes(1);
+          expect(remarkable).toHaveBeenCalledWith('default', {});
+        });
+
+        it('if other options are passed', () => {
+          shallow(
+            <MarkdownRenderer markdown="# This is a H1" options={{ linkify: false }} />,
+          );
+
+          expect(remarkable).toHaveBeenCalledTimes(1);
+          expect(remarkable).toHaveBeenCalledWith('default', { linkify: false });
+        });
+      });
+
+      it('should pass down preset to remarkable', () => {
+        shallow(
+          <MarkdownRenderer markdown="# This is a H1" options={{ preset: 'full' }} />,
+        );
+
+        expect(remarkable).toHaveBeenCalledTimes(1);
+        expect(remarkable).toHaveBeenCalledWith('full', {});
+      });
     });
 
-    describe('remarkable returns html', () => {
-      beforeEach(() => {
-        html = '<h1>This is a H1</h1>';
-        renderMock.mockReturnValueOnce(html);
+    describe('options', () => {
+      it('should default to empty object', () => {
+        shallow(
+          <MarkdownRenderer markdown="# This is a H1" />,
+        );
+
+        expect(remarkable).toHaveBeenCalledTimes(1);
+        expect(remarkable).toHaveBeenCalledWith('default', {});
       });
 
-      it('sets innerHTML to html', () => {
-        markdownRenderer = shallow(
-          <MarkdownRenderer markdown={markdown} />,
-                );
-      });
-    });
+      it('should pass down options to remarkable', () => {
+        shallow(
+          <MarkdownRenderer markdown="# This is a H1" options={{ html: true, breaks: false, linkify: false }} />,
+        );
 
-    describe('remarkable returns empty string', () => {
-      beforeEach(() => {
-        html = '';
-        renderMock.mockReturnValueOnce(html);
-      });
-
-      it('sets innerHTML to empty string', () => {
-        markdownRenderer = shallow(
-          <MarkdownRenderer markdown={markdown} />,
-                );
+        expect(remarkable).toHaveBeenCalledTimes(1);
+        expect(remarkable).toHaveBeenCalledWith('default', { html: true, breaks: false, linkify: false });
       });
     });
   });
 
-  it('applies className', () => {
+  it('should spread props', () => {
     const className = 'one two three';
 
     const markdownRenderer = shallow(
       <MarkdownRenderer markdown={markdown} className={className} />,
-        );
+    );
 
     expect(markdownRenderer.hasClass(className)).toBe(true);
   });
