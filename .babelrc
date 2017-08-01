@@ -1,4 +1,4 @@
 {
-    "presets": ["es2015", "es2016", "stage-1", "react"],
-    "plugins": ["flow-react-proptypes"]
+  "presets": ["env", "react"],
+  "plugins": ["flow-react-proptypes", "transform-object-rest-spread"]
 }

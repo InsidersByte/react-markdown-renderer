@@ -22,7 +22,7 @@ const MarkdownRenderer = ({
   markdown,
   options: { preset, ...options } = {},
   ...props
-}: PropsType) => {
+  }: PropsType) => {
   const remarkable = new Remarkable(preset || 'default', options);
   const html = remarkable.render(markdown);
 

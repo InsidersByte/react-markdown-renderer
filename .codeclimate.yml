@@ -13,5 +13,3 @@ ratings:
   paths:
   - "**.js"
   - "**.jsx"
-exclude_paths:
-- __tests__/**/*
