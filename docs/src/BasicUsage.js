@@ -2,16 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import LiveEdit from './LiveEdit';
 
-const Root = styled.div`
-  margin-top: 3.125rem;
-`;
+const Root = styled.div`margin-top: 3.125rem;`;
 
 const Title = styled.p`
   color: white;
   margin-bottom: 0.625rem;
 `;
 
-const code = (`
+const code = `
 const markdown = \`
 # This is a H1
 ## This is a H2
@@ -21,14 +19,13 @@ const markdown = \`
 render(
   <MarkdownRenderer markdown={markdown} />
 )
-`).trim();
+`.trim();
 
-const BasicUsage = () => (
+const BasicUsage = () =>
   <Root>
     <Title>Basic Usage</Title>
 
     <LiveEdit code={code} />
-  </Root>
-);
+  </Root>;
 
 export default BasicUsage;

@@ -13,12 +13,11 @@ const Root = styled.div`
   text-align: center;
 `;
 
-const App = () => (
+const App = () =>
   <Root>
     <Header />
     <BasicUsage />
     <Options />
-  </Root>
-);
+  </Root>;
 
 export default App;

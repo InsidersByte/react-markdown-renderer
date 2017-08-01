@@ -6,9 +6,7 @@ const Root = styled.div`
   margin-bottom: 3.75rem;
 `;
 
-const TitleWrapper = styled.div`
-  margin: 1.875rem 0;
-`;
+const TitleWrapper = styled.div`margin: 1.875rem 0;`;
 
 const Title = styled.h1`
   font-weight: normal;
@@ -47,7 +45,7 @@ const Button = styled.a`
   margin: 1.875rem 0;
 `;
 
-const Header = () => (
+const Header = () =>
   <Root>
     <TitleWrapper>
       <Title>React Markdown Renderer</Title>
@@ -56,14 +54,13 @@ const Header = () => (
 
     <Wrapper>
       <Button
-      href="https://github.com/insidersbyte/react-markdown-renderer"
-      target="_blank"
-      rel="noopener noreferrer"
-        >
+        href="https://github.com/insidersbyte/react-markdown-renderer"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         GitHub
       </Button>
     </Wrapper>
-  </Root>
-);
+  </Root>;
 
 export default Header;

@@ -1,12 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MarkdownRenderer from 'react-markdown-renderer';
-import {
-  LiveProvider,
-  LiveEditor,
-  LiveError,
-  LivePreview
-} from 'react-live';
+import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 
 const StyledProvider = styled(LiveProvider)`
   border-radius: 0.1875rem;
@@ -47,7 +42,7 @@ const StyledPreview = styled(LivePreview)`
   max-width: 50%;
 `;
 
-const LiveEdit = ({ code }) => (
+const LiveEdit = ({ code }) =>
   <StyledProvider
     code={code}
     noInline
@@ -60,7 +55,6 @@ const LiveEdit = ({ code }) => (
     </Row>
 
     <LiveError />
-  </StyledProvider>
-);
+  </StyledProvider>;
 
 export default LiveEdit;
