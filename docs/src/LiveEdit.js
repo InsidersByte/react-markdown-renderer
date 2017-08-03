@@ -1,7 +1,13 @@
+// @flow
+
 import React from 'react';
 import styled from 'styled-components';
 import MarkdownRenderer from 'react-markdown-renderer';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+
+type Props = {
+  code: string,
+};
 
 const StyledProvider = styled(LiveProvider)`
   border-radius: 0.1875rem;
@@ -42,7 +48,7 @@ const StyledPreview = styled(LivePreview)`
   max-width: 50%;
 `;
 
-const LiveEdit = ({ code }) =>
+const LiveEdit = ({ code }: Props) =>
   <StyledProvider
     code={code}
     noInline

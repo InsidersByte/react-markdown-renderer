@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import styled from 'styled-components';
 import LiveEdit from './LiveEdit';
@@ -18,7 +20,7 @@ const markdown = \`
 
 const options = {
   // Remarkable offers some "presets" as a convenience to quickly enable/disable active syntax rules and options for common use cases.
-  preset:       'default',       // "default" | "commonmark" | "full"
+  preset:       'default',    // "default" | "commonmark" | "full"
   
   html:         false,        // Enable HTML tags in source
   xhtmlOut:     false,        // Use '/' to close single tags (<br />)
